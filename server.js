@@ -4,7 +4,7 @@ const path = require('path')
 // const bodyparser = require('body-parser');
 
 // app.use(bodyparser.json());
-app.use(express.static(path.join(__dirname, '../client')))
+app.use(express.static(path.join(__dirname, './client')))
 
 
 const PORT = process.env.PORT || 4000
