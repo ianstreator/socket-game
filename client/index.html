@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="./index.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <canvas class="canvas"></canvas>
+
+
+    <div id="chat-box">
+        <input type="text" id="chat-input" autocomplete="off">
+        <div id="messages"></div>
+    </div>
+
+    <div id="create-account-modal">
+
+        <div id="colors-div">
+            <button id="blue" class="color-btn" value="#bae1ff">Sky</button>
+            <button id="red" class="color-btn" value="#ffb3ba">Rose</button>
+            <button id="green" class="color-btn" value="#baffc9">Mint</button>
+            <button id="yellow" class="color-btn" value="#ffffba">Lemon</button>
+        </div>
+
+        <form id="create-account-form">
+            <input id="user-name" type="text" placeholder="Enter Username...">
+            <button id="join">Join</button>
+        </form>
+
+    </div>
+
+
+    <script defer src="http://localhost:4000/socket.io/socket.io.js"></script>
+    <script type="module" src="./javascript/index.js"></script>
+</body>
+
+</html>
