@@ -22,7 +22,9 @@ const staticPlayerInfo = () => socket.on('all player info', data => {
 
 const gameInfo = () => socket.on('game info', data => {
   
-    c.clearRect(0, 0, canWidth, canHeight)
+    // c.clearRect(0, 0, canWidth, canHeight)
+    c.fillStyle = 'rgba(0,0,0,0.2)'
+    c.fillRect(0,0,canWidth,canHeight)
     players.forEach(e => {
         data.forEach(e2 => {
             if (e2.name === e.name) {
