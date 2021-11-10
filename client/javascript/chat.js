@@ -60,6 +60,7 @@ const minutes = date.getMinutes()
 const timeOfDay = (hours, minutes) => {
     const am_pm = hours < 12 ? 'AM' : 'PM'
     if (minutes < 10) minutes = `0${+minutes}`
+    if (hours > 12) hours = hours -12
     const time = `${hours}:${minutes} ${am_pm}`
     return time
 }

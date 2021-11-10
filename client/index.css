@@ -168,6 +168,7 @@ body {
   overflow-x: hidden;
   word-break: normal;
   scroll-behavior: smooth;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 #chat-box > #messages > #messageContainer {
