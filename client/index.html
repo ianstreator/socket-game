@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 
 <body>
@@ -15,7 +17,7 @@
 
 
     <div id="chat-box">
-        <input type="text" id="chat-input" autocomplete="off">
+        <input type="text" id="chat-input" autocomplete="off" maxlength="80" placeholder="Press Enter To Chat">
         <div id="messages"></div>
     </div>
 
@@ -29,7 +31,7 @@
         </div>
 
         <form id="create-account-form">
-            <input id="user-name" type="text" placeholder="Enter Username...">
+            <input id="user-name" type="text" placeholder="Enter Username..." maxlength="7">
             <button id="join">Join</button>
         </form>
 

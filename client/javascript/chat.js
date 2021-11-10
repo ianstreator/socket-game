@@ -1,24 +1,78 @@
-import {socket} from './sign-in.js'
+import { socket } from './sign-in.js'
 const chatBox = document.getElementById('chat-box')
 const input = document.getElementById('chat-input')
 const chatMessages = document.getElementById('messages')
 
-const socketChatInput = input.addEventListener('keydown', e => {
-    if (input.value === '') return
+const createMessageContent = (socketMessage, color, name) => {
+    const messageContainer = document.createElement('div')
+    messageContainer.id = 'messageContainer'
+
+    const nameDiv = document.createElement('div')
+    nameDiv.id = 'nameDiv'
+    nameDiv.style.cssText = `color:${color}`
+
+    const timeDiv = document.createElement('div')
+    timeDiv.id = 'timeDiv'
+
+    const messageDiv = document.createElement('div')
+    messageDiv.id = 'messageDiv'
+
+    nameDiv.append(`[ ${name} ]`)
+    timeDiv.append(timeOfDay(hours, minutes))
+    messageDiv.append(socketMessage)
+
+    messageContainer.append(nameDiv, messageDiv, timeDiv)
+
+    chatMessages.append(messageContainer)
+}
+
+let isFocused = false
+
+window.addEventListener('keydown', e => {
     if (e.key === 'Enter') {
-        socket.emit('chat message to server', input.value)
+        if (isFocused && !input.value) {
+            input.blur()
+            isFocused = false
+            input.placeholder = 'Press "enter" to chat'
+        } else {
+            input.focus()
+            isFocused = true
+            input.placeholder = 'You are chatting...  (Press "enter" to exit)'
+        }
+        if (isFocused && input.value) {
+            socket.emit('chat message to server', input.value)
+            input.value = ''
+        }
+    }
+})
+window.addEventListener('click', e => {
+    if (isFocused) {
+        isFocused = false
+        input.blur()
         input.value = ''
+        input.placeholder = 'Press "enter" to chat'
     }
 })
 
+let date = new Date
+const hours = date.getHours()
+const minutes = date.getMinutes()
+const timeOfDay = (hours, minutes) => {
+    const am_pm = hours < 12 ? 'AM' : 'PM'
+    if (minutes < 10) minutes = `0${+minutes}`
+    const time = `${hours}:${minutes} ${am_pm}`
+    return time
+}
+const serverSpamResponse = () => socket.on('server spam alert', data => {
+    const socketMessage = data
+    createMessageContent(socketMessage,'grey', 'Server')
+    setTimeout(() => chatMessages.scrollTop = chatMessages.scrollHeight, 200)
+})
 const socketChatOutput = () => socket.on('chat message to all users', data => {
     const [socketMessage, color, name] = data
-    if(chatMessages.childElementCount >= 20) chatMessages.children[0].remove()
-    const messageDiv = document.createElement('div')
-    messageDiv.id = 'message'
-    messageDiv.style.cssText = `color:${color}`
-    messageDiv.append(`[ ${name} ] : ${socketMessage}`)
-    chatMessages.append(messageDiv)
+    if (chatMessages.childElementCount >= 20) chatMessages.children[0].remove()
+    createMessageContent(socketMessage, color, name)
+    setTimeout(() => chatMessages.scrollTop = chatMessages.scrollHeight, 200)
 })
 
-export { socketChatOutput }
+export { socketChatOutput, isFocused, serverSpamResponse }

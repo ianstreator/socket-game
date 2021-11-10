@@ -1,11 +1,8 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-// const bodyparser = require('body-parser');
 
-// app.use(bodyparser.json());
 app.use(express.static(path.join(__dirname, './client')))
-
 
 const PORT = process.env.PORT || 4000
 const server = app.listen(PORT, () => {
@@ -15,20 +12,22 @@ const server = app.listen(PORT, () => {
 const io = require('socket.io')(server);
 
 class Player {
-    constructor(x, y, r, color, name, directions, hasMoved) {
+    constructor(x, y, r, color, name, directions, hasMoved, hasBall) {
         this.x = x,
             this.y = y,
             this.r = r,
             this.color = color,
             this.name = name,
-            this.directions = directions
-        this.hasMoved = hasMoved
+            this.directions = directions,
+            this.hasMoved = hasMoved,
+            this.hasBall = hasBall
     }
 }
 
 const players = {}
 const userNames = {}
 io.on('connection', socket => {
+
     //......RECIEVING USER INFO FROM CLIENT (EITHER ACCEPTED OR REJECTED).....
     const { name, color } = socket.handshake.query
     if (userNames[name]) {
@@ -37,7 +36,7 @@ io.on('connection', socket => {
         return
     }
     socket.emit('response', true)
-    const player = new Player(100, 100, 20, color, name, {}, false)
+    const player = new Player(100, 100, 20, color, name, {}, false, false)
     players[socket.id] = player
     userNames[name] = true
     const playerInfo = Object.values(players)
@@ -48,24 +47,43 @@ io.on('connection', socket => {
     socket.on('player go', data => {
         const player = players[socket.id]
         player.directions[data] = true
-        console.log(players[socket.id].directions)
-        console.log(data)
     })
     socket.on('player stop', data => {
         const player = players[socket.id]
         delete player.directions[data]
-        console.log(players[socket.id].directions)
+    })
+    socket.on('take ball', data => {
+        const player = players[socket.id]
+        if (player.hasBall === false) {
+            io.emit('take ball true', `${player.name} has taken the ball!`)
+        }
     })
 
     //.......RECIEVING CLIENT CHAT MESSAGES AND RE-EMITTING THEM TO ALL CLIENTS..........
+    const messageLimiter = []
     socket.on('chat message to server', message => {
         const player = players[socket.id]
+        let currentTime = Date.now()
+        messageLimiter.unshift(currentTime)
+        messageLimiter.splice(2, 1)
+        if (messageLimiter[0] - messageLimiter[1] < 1000) {
+            socket.emit('server spam alert', 'spam is annoying.')
+            return
+        }
         io.emit('chat message to all users', [message, player.color, player.name])
+    })
+
+    //........USER RESIZING WINDOW........
+    socket.on('resize game', data => {
+        const [canWidth, canHeight] = data
+        console.log(canWidth, canHeight)
+        const player = players[socket.id]
+        player.sizing['width'] = canWidth
+        player.sizing['height'] = canHeight
     })
 
     //.....CLIENT DISCONNECTING FROM THE SERVER..........
     socket.on('disconnect', () => {
-        console.log('a user has disconnected..')
         delete userNames[players[socket.id].name]
         delete players[socket.id]
         const playerInfo = Object.values(players)
@@ -92,6 +110,5 @@ setInterval(() => {
 
     if (playersMoving[0] !== undefined) {
         io.emit('game info', playersMoving)
-        console.log(playersMoving)
     }
 }, 10);

@@ -158,6 +158,7 @@ body {
   height: 2em;
   width: 100%;
   outline: none;
+  text-indent: 5px;
 }
 
 #chat-box > #messages {
@@ -166,20 +167,48 @@ body {
   background-color: rgba(0, 0, 0, 0.459);
   overflow-x: hidden;
   word-break: normal;
+  scroll-behavior: smooth;
 }
 
-#chat-box > #messages > #message {
+#chat-box > #messages > #messageContainer {
   background-color: rgba(0, 0, 0, 0.274);
-  color: #9b9b9b;
-  margin: .25em;
-  padding: .5em;
-  border-radius: 5%;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  max-width: 60%;
   position: relative;
-  font-size: 18px;
-  font-family: sans-serif;
+  margin-bottom: 0.25em;
+  padding: 0.25em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  font-size: 14px;
+}
+
+#chat-box > #messages > #messageContainer > #nameDiv {
+  height: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+}
+
+#chat-box > #messages > #messageContainer > #messageDiv {
+  color: white;
+  top: 0;
+  right: 0;
+  margin-left: 0.25em;
+  margin-bottom: 1em;
+}
+
+#chat-box > #messages > #messageContainer > #timeDiv {
+  color: #5c5c5c;
+  bottom: 0;
+  right: 0;
+  font-size: 10px;
+  position: absolute;
+  padding: .5em;
 }
 /*# sourceMappingURL=index.css.map */
