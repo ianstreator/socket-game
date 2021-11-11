@@ -31,10 +31,12 @@ let isFocused = false
 window.addEventListener('keydown', e => {
     if (e.key === 'Enter') {
         if (isFocused && !input.value) {
+            input.setAttribute('disabled', true)
             input.blur()
             isFocused = false
             input.placeholder = 'Press "enter" to chat'
         } else {
+            input.removeAttribute('disabled')
             input.focus()
             isFocused = true
             input.placeholder = 'You are chatting...  (Press "enter" to exit)'
@@ -47,6 +49,7 @@ window.addEventListener('keydown', e => {
 })
 window.addEventListener('click', e => {
     if (isFocused) {
+        input.setAttribute('disabled', true)
         isFocused = false
         input.blur()
         input.value = ''

@@ -43,8 +43,9 @@ const gameInfo = () => socket.on('game info', data => {
         c.arc(e.x, e.y, e.r, 0, Math.PI * 2)
         c.fillStyle = e.color
         c.fill()
-        c.font = '18px bold'
+        c.font = '14px bold'
         c.fillStyle = 'black'
+        c.textAlign = 'center'
         c.fillText(e.name, e.x, e.y)
     })
 })

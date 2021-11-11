@@ -36,7 +36,7 @@ io.on('connection', socket => {
         return
     }
     socket.emit('response', true)
-    const player = new Player(100, 100, 20, color, name, {}, false, false)
+    const player = new Player(100, 100, 10, color, name, {}, false, false)
     players[socket.id] = player
     userNames[name] = true
     const playerInfo = Object.values(players)
@@ -63,6 +63,11 @@ io.on('connection', socket => {
     const messageLimiter = []
     socket.on('chat message to server', message => {
         const player = players[socket.id]
+        // const regex = new RegExp(process.env.CHAT_FILTER, "i")
+        // if (regex.test(message)) {
+        //     console.log('could not send this message')
+        //     return
+        // }
         let currentTime = Date.now()
         messageLimiter.unshift(currentTime)
         messageLimiter.splice(2, 1)
