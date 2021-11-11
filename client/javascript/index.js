@@ -20,11 +20,6 @@ function main() {
 
     //...sign-in funcs..
     sign_in.socketConnectionResponse()
-
-    // response('d278542dfc0d27975e2e9247d396c7e5')
-    // process.env.WEATHER_API_KEY
-    // console.log((Date.now()/1000)/60/60/24/365)
-    
 }
 // const response = async (key) => await fetch(`http://api.weatherstack.com/current?access_key=${key}&query=fetch:ip&units=f`).then(res => res.json()).then(console.log)
 export { main };
