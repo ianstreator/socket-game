@@ -18,7 +18,7 @@ const createMessageContent = (socketMessage, color, name) => {
     messageDiv.id = 'messageDiv'
 
     nameDiv.append(`[ ${name} ]`)
-    timeDiv.append(timeOfDay(hours, minutes))
+    timeDiv.append(timeOfDay())
     messageDiv.append(socketMessage)
 
     messageContainer.append(nameDiv, messageDiv, timeDiv)
@@ -54,19 +54,20 @@ window.addEventListener('click', e => {
     }
 })
 
-let date = new Date
-const hours = date.getHours()
-const minutes = date.getMinutes()
-const timeOfDay = (hours, minutes) => {
+
+const timeOfDay = () => {
+    let date = new Date
+    let hours = date.getHours()
+    let minutes = date.getMinutes()
     const am_pm = hours < 12 ? 'AM' : 'PM'
     if (minutes < 10) minutes = `0${+minutes}`
-    if (hours > 12) hours = hours -12
+    if (hours > 12) hours = hours - 12
     const time = `${hours}:${minutes} ${am_pm}`
     return time
 }
 const serverSpamResponse = () => socket.on('server spam alert', data => {
     const socketMessage = data
-    createMessageContent(socketMessage,'grey', 'Server')
+    createMessageContent(socketMessage, 'grey', 'Server')
     setTimeout(() => chatMessages.scrollTop = chatMessages.scrollHeight, 200)
 })
 const socketChatOutput = () => socket.on('chat message to all users', data => {

@@ -20,6 +20,13 @@ function main() {
 
     //...sign-in funcs..
     sign_in.socketConnectionResponse()
+
 }
-// const response = async (key) => await fetch(`http://api.weatherstack.com/current?access_key=${key}&query=fetch:ip&units=f`).then(res => res.json()).then(console.log)
+
+const response = async (key) => {
+    await fetch(`http://api.weatherstack.com/current?access_key=${key}&query=fetch:ip&units=f`)
+        .then(res => data = res.json())
+        .then(console.log)
+}
+
 export { main };
