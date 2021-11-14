@@ -2,7 +2,7 @@ import { socket } from './sign-in.js'
 import { isFocused } from './chat.js'
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
-
+window.addEventListener('contextmenu', e => e.preventDefault())
 const canWidth = canvas.width = 400
 const canHeight = canvas.height = 400
 
@@ -18,9 +18,9 @@ const keyUpEvent = () => window.addEventListener('keyup', e => {
 const takeBallResponse = () => {
     canvas.addEventListener('contextmenu', e => {
         e.preventDefault()
-        socket.emit('take ball', null)
+        socket.emit('take flag', null)
     })
-    socket.on('take ball true', data => swal(data))
+    socket.on('take flag true', data => swal(data))
 }
 let players
 
@@ -29,9 +29,10 @@ const staticPlayerInfo = () => socket.on('all player info', data => {
 })
 
 const gameInfo = () => socket.on('game info', data => {
-  
+
     c.clearRect(0, 0, canWidth, canHeight)
- 
+    // c.fillStyle = 'rgba(0,0,0,0.1)'
+    // c.fillRect(0,0,canWidth,canHeight)
     players.forEach(e => {
         data.forEach(e2 => {
             if (e2.name === e.name) {
@@ -42,6 +43,8 @@ const gameInfo = () => socket.on('game info', data => {
         c.beginPath()
         c.arc(e.x, e.y, e.r, 0, Math.PI * 2)
         c.fillStyle = e.color
+        c.shadowColor = e.color
+        c.shadowBlur = e.r * 1.5
         c.fill()
         c.font = '14px bold'
         c.fillStyle = 'black'

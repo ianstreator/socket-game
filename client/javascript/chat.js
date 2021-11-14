@@ -62,12 +62,16 @@ const timeOfDay = () => {
     let date = new Date
     let hours = date.getHours()
     let minutes = date.getMinutes()
+    
     const am_pm = hours < 12 ? 'AM' : 'PM'
-    if (minutes < 10) minutes = `0${+minutes}`
-    if (hours > 12) hours = hours - 12
+    if (minutes < 10) minutes = `0${minutes}`
+    if (hours > 12) hours = hours - 12; else if (hours === 0) hours = 12
+
     const time = `${hours}:${minutes} ${am_pm}`
     return time
 }
+let date = new Date
+console.log( date.getHours())
 const serverSpamResponse = () => socket.on('server spam alert', data => {
     const socketMessage = data
     createMessageContent(socketMessage, 'grey', 'Server')
