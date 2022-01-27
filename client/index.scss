@@ -5,7 +5,7 @@
 }
 
 body{
-    background-color: rgb(66, 61, 52);
+    background-color: rgb(63, 62, 60);
 }
 
 .canvas{
@@ -13,7 +13,7 @@ body{
     bottom: 0;
     left: 0;
     right: 0;
-    margin-left: 25%;
+    margin-left: .25em;
     margin-bottom: 2.5em;
     background-color: rgb(32, 32, 32);
 }
@@ -141,6 +141,7 @@ body{
                 right: 0;
                 margin-left: 0.25em;
                 margin-bottom: 1em;
+                margin-left: .5em;
             }
             & > #timeDiv {
                 color: rgb(92, 92, 92);
@@ -149,6 +150,7 @@ body{
                 font-size: 10px;
                 position: absolute;
                 padding: .1em;
+                margin-right: .25em;
             }
         }
     }

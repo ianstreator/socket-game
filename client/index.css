@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: #423d34;
+  background-color: #3f3e3c;
 }
 
 .canvas {
@@ -14,7 +14,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  margin-left: 25%;
+  margin-left: .25em;
   margin-bottom: 2.5em;
   background-color: #202020;
 }
@@ -202,6 +202,7 @@ body {
   right: 0;
   margin-left: 0.25em;
   margin-bottom: 1em;
+  margin-left: .5em;
 }
 
 #chat-box > #messages > #messageContainer > #timeDiv {
@@ -211,5 +212,6 @@ body {
   font-size: 10px;
   position: absolute;
   padding: .1em;
+  margin-right: .25em;
 }
 /*# sourceMappingURL=index.css.map */

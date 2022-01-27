@@ -1,4 +1,5 @@
 import { main } from './index.js'
+import { canWidth, canHeight } from './canvas.js'
 
 const join = document.getElementById('join')
 const colors = document.getElementsByClassName('color-btn')
@@ -21,7 +22,7 @@ const requestServerToJoinSocketConnection = join.addEventListener('click', async
     if (userName.value === '' || color === null) return
     const name = userName.value
     socket = io(undefined, {
-        query: { color, name }
+        query: { color, name, canWidth, canHeight }
     })
     socketConnectionResponse()
     main()

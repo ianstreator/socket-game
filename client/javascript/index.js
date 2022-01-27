@@ -23,10 +23,5 @@ function main() {
 
 }
 
-const response = async (key) => {
-    await fetch(`http://api.weatherstack.com/current?access_key=${key}&query=fetch:ip&units=f`)
-        .then(res => data = res.json())
-        .then(console.log)
-}
 
 export { main };

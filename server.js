@@ -28,14 +28,14 @@ const players = {}
 const userNames = {}
 io.on('connection', socket => {
     //......RECIEVING USER INFO FROM CLIENT (EITHER ACCEPTED OR REJECTED).....
-    const { name, color } = socket.handshake.query
+    const { name, color, canWidth, canHeight } = socket.handshake.query
     if (userNames[name]) {
         socket.emit('response', false)
         socket.disconnect()
         return
     }
     socket.emit('response', true)
-    const player = new Player(100, 100, 25, color, name, {}, false, false)
+    const player = new Player(canWidth / 2, canHeight / 2, 25, color, name, {}, false, false)
     players[socket.id] = player
     userNames[name] = true
     const playerInfo = Object.values(players)
