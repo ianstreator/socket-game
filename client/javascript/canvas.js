@@ -3,8 +3,8 @@ import { isFocused } from './chat.js'
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 window.addEventListener('contextmenu', e => e.preventDefault())
-const canWidth = canvas.width = 700
-const canHeight = canvas.height = 700
+const canWidth = canvas.width = 600
+const canHeight = canvas.height = 600
 
 const keyDownEvent = () => window.addEventListener('keydown', e => {
     if (isFocused) return

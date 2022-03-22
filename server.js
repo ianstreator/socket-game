@@ -89,8 +89,8 @@ function playersForEach() {
         let speed = 5
         if (e.directions.w && e.y - e.r > 0) y -= speed
         if (e.directions.a && e.x - e.r > 0) x -= speed
-        if (e.directions.s && e.y + e.r < 400) y += speed
-        if (e.directions.d && e.x + e.r < 400) x += speed
+        if (e.directions.s && e.y + e.r < 600) y += speed
+        if (e.directions.d && e.x + e.r < 600) x += speed
         e.y += y
         e.x += x
         e.hasMoved = x || y
